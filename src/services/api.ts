@@ -1,5 +1,5 @@
 // API Base URL aus Umgebungsvariable
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://100.101.112.123:5032'
 
 interface DownloadRequest {
   videoUrl: string
