@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react'
 import { apiService } from '@/services/api'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
-import Input from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
 import { Download, Loader2, CheckCircle, XCircle, Link2, Settings } from 'lucide-react'
 
