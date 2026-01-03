@@ -14,10 +14,11 @@ function App() {
       <Router>
         <Layout>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            {/* Downloader als Startseite */}
+            <Route path="/" element={<Downloader />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/cookies" element={<CookieManagement />} />
             <Route path="/archive" element={<Archive />} />
-            <Route path="/download" element={<Downloader />} />
           </Routes>
         </Layout>
       </Router>
