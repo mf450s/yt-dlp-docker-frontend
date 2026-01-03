@@ -33,7 +33,8 @@ class ApiService {
 
   // GET alle Konfigurationsnamen
   async getConfigs(): Promise<string[]> {
-    const response = await fetch(`${this.baseUrl}/api/ytdlp/config/`)
+    // URL ohne Trailing Slash wie angefordert
+    const response = await fetch(`${this.baseUrl}/api/ytdlp/config`)
     if (!response.ok) {
       throw new Error(`Failed to fetch configs: ${response.statusText}`)
     }
