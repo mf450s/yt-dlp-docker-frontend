@@ -6,11 +6,9 @@ interface DownloadRequest {
   configName: string
 }
 
-interface ConfigData {
-  outputPath?: string
-  format?: string
-  audioOnly?: boolean
-  [key: string]: any
+interface Config {
+  name: string
+  content: string
 }
 
 class ApiService {
@@ -28,11 +26,12 @@ class ApiService {
       body: JSON.stringify(data),
     })
     if (!response.ok) {
-      throw new Error(`Download failed: ${response.statusText}`)
+      const errorText = await response.text()
+      throw new Error(errorText || `Download failed: ${response.statusText}`)
     }
   }
 
-  // GET alle Konfigurationen
+  // GET alle Konfigurationsnamen
   async getConfigs(): Promise<string[]> {
     const response = await fetch(`${this.baseUrl}/api/ytdlp/config/`)
     if (!response.ok) {
@@ -41,36 +40,26 @@ class ApiService {
     return response.json()
   }
 
-  // GET spezifische Konfiguration
-  async getConfig(configName: string): Promise<ConfigData> {
+  // GET spezifische Konfiguration (als reiner Text)
+  async getConfig(configName: string): Promise<string> {
     const response = await fetch(`${this.baseUrl}/api/ytdlp/config/${configName}`)
     if (!response.ok) {
       throw new Error(`Failed to fetch config: ${response.statusText}`)
     }
-    return response.json()
+    // Rückgabe als reiner Text
+    return response.text()
   }
 
-  // POST/PUT Konfiguration erstellen/aktualisieren
-  async createOrUpdateConfig(configName: string, data: ConfigData): Promise<void> {
+  // POST Konfiguration erstellen/aktualisieren (reiner Text)
+  async createOrUpdateConfig(configName: string, content: string): Promise<void> {
     const response = await fetch(`${this.baseUrl}/api/ytdlp/config/${configName}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'text/plain' },
+      body: content,
     })
     if (!response.ok) {
-      throw new Error(`Failed to create/update config: ${response.statusText}`)
-    }
-  }
-
-  // PATCH Konfiguration bearbeiten
-  async patchConfig(configName: string, data: Partial<ConfigData>): Promise<void> {
-    const response = await fetch(`${this.baseUrl}/api/ytdlp/config/${configName}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-    if (!response.ok) {
-      throw new Error(`Failed to patch config: ${response.statusText}`)
+      const errorText = await response.text()
+      throw new Error(errorText || `Failed to create/update config: ${response.statusText}`)
     }
   }
 
@@ -86,4 +75,4 @@ class ApiService {
 }
 
 export const apiService = new ApiService(API_BASE_URL)
-export type { DownloadRequest, ConfigData }
+export type { DownloadRequest, Config }
