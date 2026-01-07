@@ -46,12 +46,12 @@ npm run dev
 
 ### Umgebungsvariablen
 
-- `VITE_API_URL`: URL der YT-DLP Backend-API (Standard: `http://localhost:5004`)
+- `YTDLP_DOWNLOADER_BACKEND_BASE_URL`: URL der YT-DLP Backend-API (Standard:  `http://localhost:5004`)
 
 Beispiel `.env` Datei:
 
 ```env
-VITE_API_URL=http://localhost:5004
+YTDLP_DOWNLOADER_BACKEND_BASE_URL=http:localhost:5032
 ```
 
 ## 📦 Docker Image von GitHub Packages
@@ -103,9 +103,11 @@ src/
 Das Frontend kommuniziert mit der YT-DLP Backend-API über folgende Endpoints:
 
 ### Download
+
 - `POST /api/ytdlp/download` - Video herunterladen
 
 ### Konfigurationen
+
 - `GET /api/ytdlp/config/` - Alle Configs auflisten
 - `GET /api/ytdlp/config/{name}` - Spezifische Config abrufen
 - `POST /api/ytdlp/config/{name}` - Config erstellen/aktualisieren
