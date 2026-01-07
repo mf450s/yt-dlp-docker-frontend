@@ -38,7 +38,7 @@ const Layout = ({ children }: LayoutProps) => {
             {theme === 'light' ? (
               <Moon className="w-5 h-5" />
             ) : (
-              <Sun className="w-5 h-5" />
+              <Sun className="w-5 h-5 text-white" />
             )}
           </button>
         </div>
@@ -66,7 +66,8 @@ const Layout = ({ children }: LayoutProps) => {
                   {item.label}
                 </Link>
               )
-            })}n          </div>
+            })}
+          </div>
         </div>
       </nav>
 
