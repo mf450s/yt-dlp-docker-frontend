@@ -204,7 +204,7 @@ const Dashboard = () => {
             required
           />
 
-          <div className="space-y-2">
+          <div className="space-y-2" style={{ color: 'var(--foreground)' }}>
             <label className="block text-sm font-medium">
               Konfiguration (yt-dlp Argumente)
             </label>
