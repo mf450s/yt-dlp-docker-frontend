@@ -20,8 +20,8 @@ Modernes Frontend für die YT-DLP API - Video-Management-Tool mit React, Vite un
 git clone https://github.com/mf450s/yt-dlp-docker-frontend.git
 cd yt-dlp-docker-frontend
 
-# Umgebungsvariable anpassen (optional)
-echo "VITE_API_URL=http://localhost:5004" > .env
+# Umgebungsvariable anpassen
+echo "YTDLP_DOWNLOADER_BACKEND_BASE_URL=http://exampleurl.com" > .env
 
 # Container starten
 docker-compose up -d
@@ -36,7 +36,7 @@ Das Frontend ist dann unter `http://localhost:5173` erreichbar.
 npm install
 
 # Umgebungsvariable setzen
-echo "VITE_API_URL=http://localhost:5004" > .env.local
+echo "YTDLP_DOWNLOADER_BACKEND_BASE_URL=http://exampleurl.com" > .env.local
 
 # Dev-Server starten
 npm run dev
@@ -46,7 +46,7 @@ npm run dev
 
 ### Umgebungsvariablen
 
-- `YTDLP_DOWNLOADER_BACKEND_BASE_URL`: URL der YT-DLP Backend-API (Standard:  `http://localhost:5004`)
+- `YTDLP_DOWNLOADER_BACKEND_BASE_URL`: URL der YT-DLP Backend-API
 
 Beispiel `.env` Datei:
 
@@ -61,7 +61,7 @@ docker pull ghcr.io/mf450s/yt-dlp-docker-frontend:main
 
 docker run -d \
   -p 5173:80 \
-  -e VITE_API_URL=http://localhost:5004 \
+  -e YTDLP_DOWNLOADER_BACKEND_BASE_URL=http:localhost:5032 \
   ghcr.io/mf450s/yt-dlp-docker-frontend:main
 ```
 
@@ -113,11 +113,3 @@ Das Frontend kommuniziert mit der YT-DLP Backend-API über folgende Endpoints:
 - `POST /api/ytdlp/config/{name}` - Config erstellen/aktualisieren
 - `PATCH /api/ytdlp/config/{name}` - Config bearbeiten
 - `DELETE /api/ytdlp/config/{name}` - Config löschen
-
-## 📝 Lizenz
-
-MIT
-
-## 👤 Autor
-
-mf450s
