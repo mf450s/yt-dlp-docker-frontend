@@ -1,67 +1,67 @@
 # YT-DLP Docker Frontend
 
-Modernes Frontend für die YT-DLP API - Video-Management-Tool mit React, Vite und Tailwind CSS.
+Modern frontend for the YT-DLP API - Video management tool with React, Vite, and Tailwind CSS.
 
 ## ✨ Features
 
-- **Dashboard**: CRUD-Operationen für Download-Konfigurationen
-- **Cookie-Management**: Verwaltung von gespeicherten Cookies
-- **Archive Viewer**: Read-only Ansicht archivierter Videos
-- **Video Downloader**: Interface zum Starten von Downloads
-- **Dark/Light Mode**: Umschaltbares Theme-System
-- **Responsive Design**: Modernes, minimalistisches Flat Design
+- **Dashboard**: CRUD operations for download configurations
+- **Cookie Management**: Management of stored cookies
+- **Archive Viewer**: Read-only view of archived videos
+- **Video Downloader**: Interface for starting downloads
+- **Dark/Light Mode**: Switchable theme system
+- **Responsive Design**: Modern, minimalist flat design
 
 ## 🚀 Quick Start
 
-### Mit Docker Compose
+### With Docker Compose
 
 ```bash
-# Repository klonen
+# Clone repository
 git clone https://github.com/mf450s/yt-dlp-docker-frontend.git
 cd yt-dlp-docker-frontend
 
-# Umgebungsvariable anpassen
+# Adjust environment variable
 echo "YTDLP_DOWNLOADER_BACKEND_BASE_URL=http://exampleurl.com" > .env
 
-# Container starten
+# Start container
 docker-compose up -d
 ```
 
-Das Frontend ist dann unter `http://localhost:5173` erreichbar.
+The frontend will then be accessible at `http://localhost:5173`.
 
-### Lokale Entwicklung
+### Local Development
 
 ```bash
-# Dependencies installieren
+# Install dependencies
 npm install
 
-# Umgebungsvariable setzen
+# Set environment variable
 echo "YTDLP_DOWNLOADER_BACKEND_BASE_URL=http://exampleurl.com" > .env.local
 
-# Dev-Server starten
+# Start dev server
 npm run dev
 ```
 
-## ⚙️ Konfiguration
+## ⚙️ Configuration
 
-### Umgebungsvariablen
+### Environment Variables
 
-- `YTDLP_DOWNLOADER_BACKEND_BASE_URL`: URL der YT-DLP Backend-API
+- `YTDLP_DOWNLOADER_BACKEND_BASE_URL`: URL of the YT-DLP backend API
 
-Beispiel `.env` Datei:
+Example `.env` file:
 
 ```env
-YTDLP_DOWNLOADER_BACKEND_BASE_URL=http:localhost:5032
+YTDLP_DOWNLOADER_BACKEND_BASE_URL=http://localhost:5032
 ```
 
-## 📦 Docker Image von GitHub Packages
+## 📦 Docker Image from GitHub Packages
 
 ```bash
 docker pull ghcr.io/mf450s/yt-dlp-docker-frontend:main
 
 docker run -d \
   -p 5173:80 \
-  -e YTDLP_DOWNLOADER_BACKEND_BASE_URL=http:localhost:5032 \
+  -e YTDLP_DOWNLOADER_BACKEND_BASE_URL=http://localhost:5032 \
   ghcr.io/mf450s/yt-dlp-docker-frontend:main
 ```
 
@@ -75,41 +75,41 @@ docker run -d \
 - **React Router** - Navigation
 - **Lucide React** - Icons
 
-## 🏗️ Projektstruktur
+## 🏗️ Project Structure
 
 ```
 src/
 ├── components/
-│   ├── ui/              # Wiederverwendbare UI-Komponenten
-│   └── Layout.tsx      # Haupt-Layout mit Navigation
+│   ├── ui/              # Reusable UI components
+│   └── Layout.tsx      # Main layout with navigation
 ├── pages/
-│   ├── Dashboard.tsx   # Config-Management
+│   ├── Dashboard.tsx   # Config management
 │   ├── CookieManagement.tsx
 │   ├── Archive.tsx
 │   └── Downloader.tsx
 ├── services/
-│   └── api.ts          # API-Client
+│   └── api.ts          # API client
 ├── store/
-│   └── theme.ts        # Theme State
+│   └── theme.ts        # Theme state
 ├── lib/
-│   └── utils.ts        # Helper-Funktionen
+│   └── utils.ts        # Helper functions
 ├── App.tsx
 ├── main.tsx
 └── index.css
 ```
 
-## 🔌 API-Integration
+## 🔌 API Integration
 
-Das Frontend kommuniziert mit der YT-DLP Backend-API über folgende Endpoints:
+The frontend communicates with the YT-DLP backend API through the following endpoints:
 
 ### Download
 
-- `POST /api/ytdlp/download` - Video herunterladen
+- `POST /api/ytdlp/download` - Download video
 
-### Konfigurationen
+### Configurations
 
-- `GET /api/ytdlp/config/` - Alle Configs auflisten
-- `GET /api/ytdlp/config/{name}` - Spezifische Config abrufen
-- `POST /api/ytdlp/config/{name}` - Config erstellen/aktualisieren
-- `PATCH /api/ytdlp/config/{name}` - Config bearbeiten
-- `DELETE /api/ytdlp/config/{name}` - Config löschen
+- `GET /api/ytdlp/config/` - List all configs
+- `GET /api/ytdlp/config/{name}` - Retrieve specific config
+- `POST /api/ytdlp/config/{name}` - Create/update config
+- `PATCH /api/ytdlp/config/{name}` - Edit config
+- `DELETE /api/ytdlp/config/{name}` - Delete config
