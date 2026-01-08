@@ -108,7 +108,7 @@ const Downloader = () => {
                 placeholder="https://www.youtube.com/watch?v=..."
                 required
                 disabled={status === "loading"}
-                className="w-full pl-14 pr-4 py-5 text-xl bg-background border-2 border-input rounded-2xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all placeholder:text-muted-foreground/50 shadow-sm"
+                className="w-full pl-14 pr-4 py-5 text-xl bg-background border-2 border-input rounded-2xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all placeholder:text-muted-foreground/50 shadow-sm text-[color:var(--foreground)]"
               />
             </div>
           </div>

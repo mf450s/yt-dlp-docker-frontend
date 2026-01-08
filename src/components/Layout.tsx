@@ -15,8 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
   const navItems = [
     { path: "/", label: "Download", icon: Download },
     { path: "/configs", label: "Configs", icon: Wrench },
-    { path: "/archive", label: "Archiv", icon: Archive },
-    { path: "/cookies", label: "Cookies", icon: Cookie },
+    { path: "/credentials", label: "Credentials", icon: Cookie },
   ];
 
   return (
