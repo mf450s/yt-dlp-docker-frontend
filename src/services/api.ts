@@ -20,11 +20,14 @@ class ApiService {
 
   // Download Video
   async downloadVideo(data: DownloadRequest): Promise<void> {
-    const response = await fetch(`${this.baseUrl}/api/Downloads/download`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `${this.baseUrl}/api/Downloads/download?confName=${data.configName}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: '"' + data.videoUrl + '"',
+      }
+    );
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(errorText || `Download failed: ${response.statusText}`);
