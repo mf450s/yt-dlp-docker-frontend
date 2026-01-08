@@ -20,7 +20,7 @@ class ApiService {
 
   // Download Video
   async downloadVideo(data: DownloadRequest): Promise<void> {
-    const response = await fetch(`${this.baseUrl}/api/ytdlp/download`, {
+    const response = await fetch(`${this.baseUrl}/api/Downloads/download`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -34,7 +34,7 @@ class ApiService {
   // GET alle Konfigurationsnamen
   async getConfigs(): Promise<string[]> {
     // URL ohne Trailing Slash wie angefordert
-    const response = await fetch(`${this.baseUrl}/api/ytdlp/config`);
+    const response = await fetch(`${this.baseUrl}/api/Configs`);
     if (!response.ok) {
       throw new Error(`Failed to fetch configs: ${response.statusText}`);
     }
@@ -43,9 +43,7 @@ class ApiService {
 
   // GET spezifische Konfiguration (als reiner Text)
   async getConfig(configName: string): Promise<string> {
-    const response = await fetch(
-      `${this.baseUrl}/api/ytdlp/config/${configName}`
-    );
+    const response = await fetch(`${this.baseUrl}/api/Configs/${configName}`);
     if (!response.ok) {
       throw new Error(`Failed to fetch config: ${response.statusText}`);
     }
@@ -58,14 +56,11 @@ class ApiService {
     configName: string,
     content: string
   ): Promise<void> {
-    const response = await fetch(
-      `${this.baseUrl}/api/ytdlp/config/${configName}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "text/plain" },
-        body: content,
-      }
-    );
+    const response = await fetch(`${this.baseUrl}/api/Configs/${configName}`, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: content,
+    });
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(
@@ -76,12 +71,9 @@ class ApiService {
 
   // DELETE Konfiguration löschen
   async deleteConfig(configName: string): Promise<void> {
-    const response = await fetch(
-      `${this.baseUrl}/api/ytdlp/config/${configName}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await fetch(`${this.baseUrl}/api/Configs/${configName}`, {
+      method: "DELETE",
+    });
     if (!response.ok) {
       throw new Error(`Failed to delete config: ${response.statusText}`);
     }
