@@ -1,9 +1,0 @@
-version: '3.8'
-services:
-  frontend:
-    build: .
-    ports:
-      - "5173:80"
-    environment:
-      - YTDLP_DOWNLOADER_BACKEND_BASE_URL=http://100.101.112.123:5032
-    restart: always
