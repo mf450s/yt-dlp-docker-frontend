@@ -6,7 +6,7 @@ import Input from '@/components/ui/Input'
 import Modal from '@/components/ui/Modal'
 import { Plus, Edit, Trash2, Loader2, FileText, Copy, Check } from 'lucide-react'
 
-const Dashboard = () => {
+const ConfigManagement = () => {
   const [configs, setConfigs] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -281,4 +281,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default ConfigManagement
