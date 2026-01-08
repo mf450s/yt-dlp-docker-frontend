@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useThemeStore } from "../store/theme";
-import { Sun, Moon, Wrench, Cookie, Archive, Download } from "lucide-react";
+import { Sun, Moon, Wrench, Cookie, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LayoutProps {
@@ -15,7 +15,6 @@ const Layout = ({ children }: LayoutProps) => {
   const navItems = [
     { path: "/", label: "Download", icon: Download },
     { path: "/configs", label: "Configs", icon: Wrench },
-    { path: "/archive", label: "Archiv", icon: Archive },
     { path: "/cookies", label: "Cookies", icon: Cookie },
   ];
 
