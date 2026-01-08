@@ -8,5 +8,5 @@ do
     echo $key=$value
 
     # replacce key with value in .ts and .css files
-    find /usr/share/nginx/html -type f \( -name '*.tsx' -o -name '*.css' \) -exec sed -i "s|${key}|${value}|g" '{}' +
+    find /usr/share/nginx/html -type f \( -name '*.ts') -exec sed -i "s|${key}|${value}|g" '{}' +
 done
