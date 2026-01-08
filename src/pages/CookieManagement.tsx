@@ -1,49 +1,49 @@
-import { useState } from 'react'
-import Card from '@/components/ui/Card'
-import Button from '@/components/ui/Button'
-import Input from '@/components/ui/Input'
-import Modal from '@/components/ui/Modal'
-import { Plus, Trash2 } from 'lucide-react'
+import { useState } from "react";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import Modal from "@/components/ui/Modal";
+import { Plus, Trash2 } from "lucide-react";
 
 interface Cookie {
-  id: string
-  name: string
-  value: string
-  domain: string
+  id: string;
+  name: string;
+  value: string;
+  domain: string;
 }
 
 // Mock-Daten für Cookie-Management
 // In der echten Implementation würde dies über die API kommen
 const mockCookies: Cookie[] = [
-  { id: '1', name: 'session_id', value: 'abc123...', domain: 'youtube.com' },
-  { id: '2', name: 'auth_token', value: 'xyz789...', domain: 'youtube.com' },
-]
+  { id: "1", name: "session_id", value: "abc123...", domain: "youtube.com" },
+  { id: "2", name: "auth_token", value: "xyz789...", domain: "youtube.com" },
+];
 
 const CookieManagement = () => {
-  const [cookies, setCookies] = useState<Cookie[]>(mockCookies)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [cookies, setCookies] = useState<Cookie[]>(mockCookies);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    value: '',
-    domain: '',
-  })
+    name: "",
+    value: "",
+    domain: "",
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     const newCookie: Cookie = {
       id: Date.now().toString(),
       ...formData,
-    }
-    setCookies([...cookies, newCookie])
-    setFormData({ name: '', value: '', domain: '' })
-    setIsModalOpen(false)
+    };
+    setCookies([...cookies, newCookie]);
+    setFormData({ name: "", value: "", domain: "" });
+    setIsModalOpen(false);
     // TODO: API-Call zum Speichern des Cookies
-  }
+  };
 
   const handleDelete = (id: string) => {
-    setCookies(cookies.filter((c) => c.id !== id))
+    setCookies(cookies.filter((c) => c.id !== id));
     // TODO: API-Call zum Löschen des Cookies
-  }
+  };
 
   return (
     <div>
@@ -94,18 +94,26 @@ const CookieManagement = () => {
           <Input
             label="Value"
             value={formData.value}
-            onChange={(e) => setFormData({ ...formData, value: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, value: e.target.value })
+            }
             required
           />
           <Input
             label="Domain"
             value={formData.domain}
-            onChange={(e) => setFormData({ ...formData, domain: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, domain: e.target.value })
+            }
             placeholder="z.B. youtube.com"
             required
           />
           <div className="flex gap-2 justify-end">
-            <Button type="button" variant="secondary" onClick={() => setIsModalOpen(false)}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => setIsModalOpen(false)}
+            >
               Abbrechen
             </Button>
             <Button type="submit">Hinzufügen</Button>
@@ -113,7 +121,7 @@ const CookieManagement = () => {
         </form>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default CookieManagement
+export default CookieManagement;
