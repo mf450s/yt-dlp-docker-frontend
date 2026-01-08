@@ -13,7 +13,7 @@ const Downloader = () => {
   const [selectedConfig, setSelectedConfig] = useState('')
   const [status, setStatus] = useState<DownloadStatus>('idle')
   const [errorMessage, setErrorMessage] = useState('')
-  const [showAdvanced, setShowAdvanced] = useState(false)
+  // showAdvanced State wurde entfernt
   const inputRef = useRef<HTMLInputElement>(null)
   const [loadingConfigs, setLoadingConfigs] = useState(false)
 
@@ -104,20 +104,13 @@ const Downloader = () => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
-            <button
-              type="button"
-              onClick={() => setShowAdvanced(!showAdvanced)}
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <div className={`p-1.5 rounded-md bg-background border border-border transition-transform duration-200 ${showAdvanced ? 'rotate-180' : ''}`}>
-                <Settings className="w-4 h-4" />
-              </div>
-              {showAdvanced ? 'Optionen ausblenden' : 'Konfiguration wählen'}
-            </button>
-
-            {showAdvanced && (
-              <div className="w-full sm:w-auto min-w-[250px] animate-in fade-in slide-in-from-top-1 duration-200">
+          {/* Config Selection Section - Jetzt dauerhaft sichtbar */}
+          <div className="p-4 bg-muted/30 rounded-xl border border-border/50">
+             <div className="space-y-2">
+                <label className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                  <Settings className="w-4 h-4" />
+                  Konfiguration wählen
+                </label>
                 <div className="flex gap-2">
                   <div className="flex-1">
                     <Select
@@ -125,28 +118,21 @@ const Downloader = () => {
                       onChange={(e) => setSelectedConfig(e.target.value)}
                       options={configOptions}
                       disabled={configs.length === 0}
-                      className="bg-background"
+                      className="bg-background w-full"
                     />
                   </div>
                   <Button 
                     type="button" 
-                    variant="ghost" 
                     size="icon" 
                     onClick={loadConfigs} 
                     disabled={loadingConfigs}
                     title="Konfigurationen neu laden"
+                    className="bg-background shrink-0"
                   >
                     <RefreshCw className={`w-4 h-4 ${loadingConfigs ? 'animate-spin' : ''}`} />
                   </Button>
                 </div>
               </div>
-            )}
-            
-            {!showAdvanced && selectedConfig && (
-              <div className="text-sm text-muted-foreground bg-background px-3 py-1.5 rounded-md border border-border">
-                Konfig: <span className="font-semibold text-foreground">{selectedConfig}</span>
-              </div>
-            )}
           </div>
 
           {configs.length === 0 && !loadingConfigs && (
