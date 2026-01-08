@@ -122,7 +122,9 @@ const ConfigManagement = () => {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Konfigurationen</h1>
+          <h1 className="text-3xl font-bold mb-2 text-[color:var(--foreground)]">
+            Konfigurationen
+          </h1>
           <p className="text-muted-foreground">
             Verwalte deine yt-dlp Konfigurationen für verschiedene Download-Szenarien
           </p>
@@ -136,12 +138,12 @@ const ConfigManagement = () => {
       {configs.length === 0 ? (
         <Card className="text-center py-12">
           <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-          <h3 className="text-xl font-semibold mb-2">Keine Konfigurationen vorhanden</h3>
+          <h3 className="text-xl font-semibold mb-2 text-[color:var(--foreground)">Keine Konfigurationen vorhanden</h3>
           <p className="text-muted-foreground mb-6">
             Erstelle deine erste yt-dlp Konfiguration, um Downloads zu starten
           </p>
           <Button onClick={openCreateModal}>
-            <Plus className="w-4 h-4 mr-2" />
+            <Plus className="w-4 h-4 mr-2 text-[color:var(--foreground)" />
             Erste Konfiguration erstellen
           </Button>
         </Card>
