@@ -21,7 +21,7 @@ class ApiService {
   // Download Video
   async downloadVideo(data: DownloadRequest): Promise<void> {
     const response = await fetch(
-      `${this.baseUrl}/api/Downloads/download?confName=${data.configName}`,
+      `${this.baseUrl}/api/Downloads/download?credentialName=${data.configName}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
