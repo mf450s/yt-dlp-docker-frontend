@@ -1,10 +1,10 @@
-import { SelectHTMLAttributes, forwardRef } from 'react'
-import { cn } from '@/lib/utils'
+import { SelectHTMLAttributes, forwardRef } from "react";
+import { cn } from "@/lib/utils";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  label?: string
-  error?: string
-  options: { value: string; label: string }[]
+  label?: string;
+  error?: string;
+  options: { value: string; label: string }[];
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
@@ -19,11 +19,11 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <select
           ref={ref}
           className={cn(
-            'w-full px-3 py-2 rounded-lg border border-border bg-background',
-            'text-foreground',
-            'focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
-            'disabled:opacity-50 disabled:cursor-not-allowed',
-            error && 'border-red-500 focus:ring-red-500',
+            "w-full px-3 py-2 rounded-lg border border-border bg-background",
+            "text-foreground",
+            "focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent",
+            "disabled:opacity-50 disabled:cursor-not-allowed",
+            error && "border-red-500 focus:ring-red-500",
             className
           )}
           {...props}
@@ -34,14 +34,12 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             </option>
           ))}
         </select>
-        {error && (
-          <p className="mt-1 text-sm text-red-500">{error}</p>
-        )}
+        {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
       </div>
-    )
+    );
   }
-)
+);
 
-Select.displayName = 'Select'
+Select.displayName = "Select";
 
-export default Select
+export default Select;

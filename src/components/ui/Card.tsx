@@ -1,5 +1,5 @@
-import { HTMLAttributes, forwardRef } from 'react'
-import { cn } from '@/lib/utils'
+import { HTMLAttributes, forwardRef } from "react";
+import { cn } from "@/lib/utils";
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -8,16 +8,13 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
     return (
       <div
         ref={ref}
-        className={cn(
-          'rounded-lg border border-border bg-card p-6',
-          className
-        )}
+        className={cn("rounded-lg border border-border bg-card p-6", className)}
         {...props}
       />
-    )
+    );
   }
-)
+);
 
-Card.displayName = 'Card'
+Card.displayName = "Card";
 
-export default Card
+export default Card;
