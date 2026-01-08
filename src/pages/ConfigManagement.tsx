@@ -138,7 +138,7 @@ const ConfigManagement = () => {
       {configs.length === 0 ? (
         <Card className="text-center py-12">
           <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-          <h3 className="text-xl font-semibold mb-2 text-[color:var(--foreground)">Keine Konfigurationen vorhanden</h3>
+          <h3 className="text-xl font-semibold mb-2 text-[color:var(--foreground)]">Keine Konfigurationen vorhanden</h3>
           <p className="text-muted-foreground mb-6">
             Erstelle deine erste yt-dlp Konfiguration, um Downloads zu starten
           </p>
