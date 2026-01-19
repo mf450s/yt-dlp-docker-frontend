@@ -73,7 +73,7 @@ class ApiService {
   async updateConfig(configName: string, content: string): Promise<void> {
     const encodedName = encodeURIComponent(configName);
     const response = await fetch(`${this.baseUrl}/api/Configs/${encodedName}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: { "Content-Type": "text/plain" },
       body: content,
     });
