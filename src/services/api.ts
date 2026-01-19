@@ -21,7 +21,7 @@ class ApiService {
   // Download Video
   async downloadVideo(data: DownloadRequest): Promise<void> {
     const response = await fetch(
-      `${this.baseUrl}/api/Downloads/download?confName=${data.configName}`,
+      `${this.baseUrl}/api/Downloads/download?confName=${encodeURIComponent(data.configName)}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -36,7 +36,6 @@ class ApiService {
 
   // GET alle Konfigurationsnamen
   async getConfigs(): Promise<string[]> {
-    // URL ohne Trailing Slash wie angefordert
     const response = await fetch(`${this.baseUrl}/api/Configs`);
     if (!response.ok) {
       throw new Error(`Failed to fetch configs: ${response.statusText}`);
@@ -46,17 +45,18 @@ class ApiService {
 
   // GET spezifische Konfiguration (als reiner Text)
   async getConfig(configName: string): Promise<string> {
-    const response = await fetch(`${this.baseUrl}/api/Configs/${configName}`);
+    const encodedName = encodeURIComponent(configName);
+    const response = await fetch(`${this.baseUrl}/api/Configs/${encodedName}`);
     if (!response.ok) {
-      throw new Error(`Failed to fetch config: ${response.statusText}`);
+      throw new Error(`Failed to fetch config '${configName}': ${response.statusText}`);
     }
-    // Rückgabe als reiner Text
     return response.text();
   }
 
   // POST Konfiguration erstellen (reiner Text)
   async createConfig(configName: string, content: string): Promise<void> {
-    const response = await fetch(`${this.baseUrl}/api/Configs/${configName}`, {
+    const encodedName = encodeURIComponent(configName);
+    const response = await fetch(`${this.baseUrl}/api/Configs/${encodedName}`, {
       method: "POST",
       headers: { "Content-Type": "text/plain" },
       body: content,
@@ -64,14 +64,15 @@ class ApiService {
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(
-        errorText || `Failed to create config: ${response.statusText}`
+        errorText || `Failed to create config '${configName}': ${response.statusText}`
       );
     }
   }
 
-  // PUT Konfiguration aktualisieren (reiner Text)
+  // POST Konfiguration aktualisieren (reiner Text)
   async updateConfig(configName: string, content: string): Promise<void> {
-    const response = await fetch(`${this.baseUrl}/api/Configs/${configName}`, {
+    const encodedName = encodeURIComponent(configName);
+    const response = await fetch(`${this.baseUrl}/api/Configs/${encodedName}`, {
       method: "POST",
       headers: { "Content-Type": "text/plain" },
       body: content,
@@ -79,18 +80,19 @@ class ApiService {
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(
-        errorText || `Failed to update config: ${response.statusText}`
+        errorText || `Failed to update config '${configName}': ${response.statusText}`
       );
     }
   }
 
   // DELETE Konfiguration löschen
   async deleteConfig(configName: string): Promise<void> {
-    const response = await fetch(`${this.baseUrl}/api/Configs/${configName}`, {
+    const encodedName = encodeURIComponent(configName);
+    const response = await fetch(`${this.baseUrl}/api/Configs/${encodedName}`, {
       method: "DELETE",
     });
     if (!response.ok) {
-      throw new Error(`Failed to delete config: ${response.statusText}`);
+      throw new Error(`Failed to delete config '${configName}': ${response.statusText}`);
     }
   }
 }
