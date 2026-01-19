@@ -54,11 +54,8 @@ class ApiService {
     return response.text();
   }
 
-  // POST Konfiguration erstellen/aktualisieren (reiner Text)
-  async createOrUpdateConfig(
-    configName: string,
-    content: string
-  ): Promise<void> {
+  // POST Konfiguration erstellen (reiner Text)
+  async createConfig(configName: string, content: string): Promise<void> {
     const response = await fetch(`${this.baseUrl}/api/Configs/${configName}`, {
       method: "POST",
       headers: { "Content-Type": "text/plain" },
@@ -67,7 +64,22 @@ class ApiService {
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(
-        errorText || `Failed to create/update config: ${response.statusText}`
+        errorText || `Failed to create config: ${response.statusText}`
+      );
+    }
+  }
+
+  // PUT Konfiguration aktualisieren (reiner Text)
+  async updateConfig(configName: string, content: string): Promise<void> {
+    const response = await fetch(`${this.baseUrl}/api/Configs/${configName}`, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: content,
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        errorText || `Failed to update config: ${response.statusText}`
       );
     }
   }
