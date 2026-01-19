@@ -29,14 +29,14 @@ const Credentials = () => {
     setIsModalOpen(false);
 
     apiService
-      .createOrUpdateConfig(newCredential.name, newCredential.value)
-      .catch((error) => {
+      .createConfig(newCredential.name, newCredential.value)
+      .catch((error: unknown) => {
         console.error("Failed to save credential:", error);
       });
   };
 
   const handleDelete = (name: string) => {
-    apiService.deleteConfig(name).catch((error) => {
+    apiService.deleteConfig(name).catch((error: unknown) => {
       console.error("Failed to delete credential:", error);
     });
     setCredentials(credentials.filter((cred) => cred.name !== name));
