@@ -93,7 +93,13 @@ const ConfigManagement = () => {
     }
 
     try {
-      await apiService.createOrUpdateConfig(configName.trim(), configContent);
+      if (editingConfig) {
+        // Update existing config
+        await apiService.updateConfig(configName.trim(), configContent);
+      } else {
+        // Create new config
+        await apiService.createConfig(configName.trim(), configContent);
+      }
       await loadConfigs();
       setIsModalOpen(false);
     } catch (error) {
