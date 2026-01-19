@@ -12,6 +12,7 @@ import {
   FileText,
   Copy,
   Check,
+  AlertCircle,
 } from "lucide-react";
 
 const ConfigManagement = () => {
@@ -27,6 +28,7 @@ const ConfigManagement = () => {
   } | null>(null);
   const [copiedConfig, setCopiedConfig] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
     loadConfigs();
@@ -35,10 +37,16 @@ const ConfigManagement = () => {
   const loadConfigs = async () => {
     try {
       setLoading(true);
+      setLoadError(null);
       const data = await apiService.getConfigs();
       setConfigs(data);
     } catch (error) {
       console.error("Failed to load configs:", error);
+      setLoadError(
+        error instanceof Error
+          ? error.message
+          : "Fehler beim Laden der Konfigurationen"
+      );
     } finally {
       setLoading(false);
     }
@@ -58,13 +66,20 @@ const ConfigManagement = () => {
     try {
       setEditingConfig(name);
       setConfigName(name);
-      const content = await apiService.getConfig(name);
-      setConfigContent(content);
       setSaveError(null);
       setIsModalOpen(true);
+      
+      // Load content after opening modal to show loading state
+      const content = await apiService.getConfig(name);
+      setConfigContent(content);
     } catch (error) {
       console.error("Failed to load config:", error);
-      alert("Fehler beim Laden der Konfiguration");
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Fehler beim Laden der Konfiguration";
+      setSaveError(errorMessage);
+      // Keep modal open to show error
     }
   };
 
@@ -74,7 +89,11 @@ const ConfigManagement = () => {
       setPreviewConfig({ name, content });
     } catch (error) {
       console.error("Failed to load config:", error);
-      alert("Fehler beim Laden der Konfiguration");
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Fehler beim Laden der Konfiguration";
+      alert(errorMessage);
     }
   };
 
@@ -118,7 +137,11 @@ const ConfigManagement = () => {
       await loadConfigs();
     } catch (error) {
       console.error("Failed to delete config:", error);
-      alert("Fehler beim Löschen der Konfiguration");
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Fehler beim Löschen der Konfiguration";
+      alert(errorMessage);
     }
   };
 
@@ -136,6 +159,21 @@ const ConfigManagement = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Card className="p-6 max-w-md">
+          <div className="flex items-center gap-3 mb-4">
+            <AlertCircle className="w-6 h-6 text-red-500" />
+            <h3 className="text-lg font-semibold">Fehler beim Laden</h3>
+          </div>
+          <p className="text-muted-foreground mb-4">{loadError}</p>
+          <Button onClick={loadConfigs}>Erneut versuchen</Button>
+        </Card>
       </div>
     );
   }
@@ -218,7 +256,10 @@ const ConfigManagement = () => {
       {/* Edit/Create Modal */}
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSaveError(null);
+        }}
         title={
           editingConfig
             ? `Konfiguration bearbeiten: ${editingConfig}`
@@ -254,9 +295,12 @@ const ConfigManagement = () => {
 
           {saveError && (
             <div className="p-3 bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-700 rounded-lg">
-              <p className="text-sm text-red-800 dark:text-red-200">
-                {saveError}
-              </p>
+              <div className="flex items-start gap-2">
+                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                <p className="text-sm text-red-800 dark:text-red-200">
+                  {saveError}
+                </p>
+              </div>
             </div>
           )}
 
@@ -264,7 +308,10 @@ const ConfigManagement = () => {
             <Button
               type="button"
               variant="secondary"
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => {
+                setIsModalOpen(false);
+                setSaveError(null);
+              }}
             >
               Abbrechen
             </Button>
